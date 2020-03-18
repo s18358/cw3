@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using cw3.DAL;
 using cw3.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,5 +50,18 @@ namespace cw3.Controllers
         {
             return Ok("Student o id: " + id + " zostal usuniety");
         }
+
+        private readonly IDbService _dbService;
+        public StudentsController(IDbService db)
+        {
+            _dbService = db;
+        }
+
+        [HttpGet]
+        public IActionResult GetStudents(string orderBy)
+        {
+            return Ok(_dbService.GetStudents());
+        }
+
     }
 }
